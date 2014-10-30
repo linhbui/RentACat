@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>  
+  <title>Cats99</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>    
+<body>
+<nav class="navbar navbar-default" role="navigation">
+  <a class="navbar-brand" href= "<%= root_url %>">99 Cats</a>
+
+<div class="nav pull-right">
+    <% if current_user.nil? %>
+    <%= link_to "Sign in", new_session_url %>
+    <%= link_to "Sign up", new_user_url %>
+    <% else %>
+    Hello, <%= current_user.user_name  %>
+     <%= link_to "Logout", session_url, method: :delete %>
+  <% end %>
+</div>
+
+</nav>
+
+
+<div class="container">
+<%= yield %> 
+</div>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6"><h1><%= @cat.name %></h1></div><div class="col-md-6"><span class="pull-right"><%= gravatar_for @cat %></span></div>
+  </div>
+</div>
+<form action="<%= cat_url(@cat) %> " class="button_to" method="post">
+  <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+  
+  <div>
+    <input name="_method" type="hidden" value="delete">
+    <button type="submit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+    
+    <a href="<%= edit_cat_url(@cat) %>" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-wrench"></span> Edit</a>
+    
+  </div>
+</form>
+<hr>
+
+<div class="table_name">Cat Info</div>
+
+
+<table class="table">
+  <thead>
+    <th>Birthdate</th>
+    <th>Age</th>
+    <th>Color</th>
+    <th>Sex</th>
+    <th>Description</th>
+  </thead>
+  
+  <tr>
+    <td><%= @cat.birth_date %></td>
+    <td><%= @cat.age %></td>
+    <td><%= @cat.color %></td>
+    <td><%= @cat.sex %></td>
+    <td><%= @cat.description %></td>
+  </tr>
+  
+</table>
+
+<div class="table_name">Rental Requests
+
+<span class="request"><a href="<%= new_cat_rental_request_url %>" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus"></span> New rental request</a></span>
+</div>
+
+
+<table class="table">
+  <thead>
+    <th>Requester</th>
+    <th>Rental start date</th>
+    <th>Rental end date</th>
+    <th>Status</th>
+    <th>Approve</th>
+    <th>Deny</th>
+    <th>Delete</th>
+  </thead>
+  
+  <% @requests.each do |request|%>
+  <tr>
+    <td><%= request.user.user_name %></td>
+    <td><%= request.start_date %></td>
+    <td><%= request.end_date %></td>
+    <td><%= request.status %></td>
+    <% if request.pending? %>
+      <td>
+        
+        <% if current_user == @cat.owner %>
+        <a href="<%= cat_rental_request_approve_url(request) %>" 
+          class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-ok"></span> 
+          Approve
+        </a>
+        <% end %>
+      </td>
+      <td>
+        <% if current_user == @cat.owner %>
+          <a href="<%= cat_rental_request_deny_url(request) %>" 
+          class="btn btn-default btn-xs">
+          <span class="glyphicon glyphicon-remove"></span> 
+          Deny
+        </a>
+        <% end %>
+        </td>
+    <% else %>
+      <td></td>
+      <td></td>
+    <% end %>
+    <td>
+
+             
+    <form action="<%= cat_rental_request_url(request) %> " class="button_to" method="post">  <input type="hidden"
+         name="authenticity_token"
+         value="<%= form_authenticity_token %>">
+
+      <div>
+        <input name="_method" type="hidden" value="delete">
+        <button type="submit" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-trash"></span> Delete Request</button>
+      </div>
+    </form>         
+             
+             
+    </td>
+  </tr>
+  <% end %>
+</table>
+

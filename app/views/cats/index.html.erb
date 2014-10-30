@@ -1,0 +1,14 @@
+<div class="col-md-4 col-md-offset-4">
+<h1 class="text-center">All Cats</h1>
+
+<ul class="cats">
+  <% @cats.each do |cat| %>
+  <li>
+    <%= gravatar_for(cat) %>      
+    <%= link_to cat.name, cat_url(cat) %>
+  <li>
+  <% end %>
+
+
+<%= link_to "Add a new cat!", new_cat_url, class: "btn btn-large btn-primary col-md-offset-5"%>
+</div>
