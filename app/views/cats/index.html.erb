@@ -5,10 +5,10 @@
   <% @cats.each do |cat| %>
   <li>
     <%= gravatar_for(cat) %>      
-    <%= link_to cat.name, cat_url(cat) %>
+    <%= link_to cat.name, cat_url(cat), class: "col-md-offset-1" %>
   <li>
   <% end %>
 
 
-<%= link_to "Add a new cat!", new_cat_url, class: "btn btn-large btn-primary col-md-offset-5"%>
+<%= link_to "Add a new cat!", new_cat_url, class: "btn btn-large btn-primary col-md-offset-3"%>
 </div>

@@ -12,11 +12,13 @@
 
 <div class="nav pull-right">
     <% if current_user.nil? %>
+		<%= link_to "All cats", cats_url %>
     <%= link_to "Sign in", new_session_url %>
     <%= link_to "Sign up", new_user_url %>
     <% else %>
-    Hello, <%= current_user.user_name  %>
-     <%= link_to "Logout", session_url, method: :delete %>
+		<%= link_to "My profile", user_url(current_user) %>
+    <%= link_to "All cats", cats_url %>  
+    <%= link_to "Logout", session_url, method: :delete %>
   <% end %>
 </div>
 
